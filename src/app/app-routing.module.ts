@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+//configuração de rotas do sistema
+const routes: Routes = [
+  //quando acessar /times quero que carregue o modulo de times
+  { path: 'times',loadChildren: './pages/times/times.module#TimesModule'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
