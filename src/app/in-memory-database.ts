@@ -1,12 +1,12 @@
 import { InMemoryDbService } from "angular-in-memory-web-api";
-
+import { Time } from "./pages/times/shared/time.model";
 //Classe responsável por representar uma simulacao de requisicoes api
 
 export class InMemoryDatabase implements InMemoryDbService{
 
     createDb(){
 
-        const times = [
+        const times: Time[] = [
             { id: 1, nome: "AMS Noreste", descricao: "Time responsavel pelo atendimento do CTF"},
             { id: 2, nome: "AMS WMB", descricao: "Time pelo atendimento de chamados de CD,Loja,Compprice,CDVP,Comissões"},
             { id: 3, nome: "AMS Sul", descricao: "Time responsavel pelo atendimento do SGA,BDN,Vendas online e etc"},
