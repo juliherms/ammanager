@@ -27,35 +27,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let time of times">
       <td>
-          <strong>AMS Nordeste</strong><br>
-          <small>Time responsável pelo atendimento dos chamados do CTF</small>
+          <strong>{{time.nome}}</strong><br>
+          <small>{{time.descricao}}</small>
       </td>
       <td>
-        <a [routerLink]="[12,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button (click)="alert('excluir')" class="btn btn-outline-danger btn-sm">Excluir</button>
+        <a [routerLink]="[time.id,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <button (click)="deleteTime(time)" class="btn btn-outline-danger btn-sm">Excluir</button>
       </td>
     </tr>
-    <tr>
-        <td>
-            <strong>AMS Nordeste</strong><br>
-            <small>Time responsável pelo atendimento dos chamados do CTF</small>
-        </td>
-        <td>
-          <a [routerLink]="[12,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-          <button (click)="alert('excluir')" class="btn btn-outline-danger btn-sm">Excluir</button>
-        </td>
-      </tr>
-      <tr>
-          <td>
-              <strong>AMS Nordeste</strong><br>
-              <small>Time responsável pelo atendimento dos chamados do CTF</small>
-          </td>
-          <td>
-            <a [routerLink]="[12,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-            <button (click)="alert('excluir')" class="btn btn-outline-danger btn-sm">Excluir</button>
-          </td>
-        </tr>
   </tbody>
 </table>
