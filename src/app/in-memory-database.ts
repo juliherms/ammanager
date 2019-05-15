@@ -1,7 +1,8 @@
+import { Ferias } from './pages/ferias/shared/ferias.model';
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { Time } from "./pages/times/shared/time.model";
-//Classe responsável por representar uma simulacao de requisicoes api
 
+//Classe responsável por representar uma simulacao de requisicoes api
 export class InMemoryDatabase implements InMemoryDbService{
 
     createDb(){
@@ -16,6 +17,11 @@ export class InMemoryDatabase implements InMemoryDbService{
             { id: 7, nome: "Produção Monitoramento", descricao: "Time responsavel pela execução de jobs monitoramento do ambiente"},
         ];
 
-        return { times }
+        const ferias: Ferias[] = [
+            {id: 1, colaborador: "Kelen Janner", comentario: "Alinhado com a liderança",dataInicio: "04/11/2019",dataFim: "18/11/2019", timeId: times[0].id,time: times[0],concluida: false}  as Ferias,
+            {id: 2, colaborador: "Abner Rodrigues", comentario: "Alinhado com a liderança",dataInicio: "02/01/2019",dataFim: "04/01/2019", timeId: times[0].id,time: times[0],concluida: true}  as Ferias
+        ];
+   
+        return {times,ferias}
     }
 }

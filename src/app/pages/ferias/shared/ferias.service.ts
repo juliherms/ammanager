@@ -8,7 +8,7 @@ import { map,catchError,flatMap } from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class TimeService {
+export class FeriasService {
 
   //mock de requisicao em memoria
   private apiPath: string = "api/ferias";
@@ -19,7 +19,7 @@ export class TimeService {
   getAll(): Observable<Ferias[]>{
     return this.http.get(this.apiPath).pipe(
       catchError(this.handleError),
-      map(this.jsonDataToTimes)
+      map(this.jsonDataToFerias)
     )
   }
 
@@ -30,7 +30,7 @@ export class TimeService {
     
     return this.http.get(url).pipe(
       catchError(this.handleError),
-      map(this.jsonDataToTime)
+      map(this.jsonDataToFeria)
     )
   }
 
@@ -38,7 +38,7 @@ export class TimeService {
   create(ferias: Ferias): Observable<Ferias>{
     return this.http.post(this.apiPath,ferias).pipe(
       catchError(this.handleError),
-      map(this.jsonDataToTime)
+      map(this.jsonDataToFeria)
     )
   }
 
@@ -65,16 +65,22 @@ export class TimeService {
 
   //METODOS PRIVADOS
 
-  //Converte um json em lista de objetos de time
-  private jsonDataToTimes(jsonData: any[]): Ferias[]{
-    const times: Ferias[] = [];
-    jsonData.forEach(element => times.push(element as Ferias));
-    return times;
+  //Converte um json em lista de objetos de ferias
+  private jsonDataToFerias(jsonData: any[]): Ferias[]{
+
+    const listaFerias: Ferias[] = [];
+    //percorre o array e criar a lista de objetos
+    jsonData.forEach(element => {
+      const ferias = Object.assign(new Ferias(),element);
+      listaFerias.push(ferias);
+    });
+
+    return listaFerias;
   }
 
   //Converte um objeto json para time
-  private jsonDataToTime(jsonData: any): Ferias{
-    return jsonData as Ferias;
+  private jsonDataToFeria(jsonData: any): Ferias{
+    return Object.assign(new Ferias(),jsonData);
   }
 
   //Levanta e loga uma mensagem de erro 

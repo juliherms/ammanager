@@ -13,7 +13,7 @@ export class Ferias{
         public concluida?: boolean
     ){}
 
-    get isConcluida(): string{
+    get concluidaText(): string {
         return this.concluida ? "Já Realizada" : "Pendente";
     }
 }

@@ -1,0 +1,51 @@
+<!--trilha de navegacao -->
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item active">Férias</li>
+  </ol>
+</nav>
+<!-- titulo da pagina-->
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">
+      Férias
+    </h1>
+  </div>
+  <div class="col-md">
+    <a routerLink="novo" class="btn btn-success float-right">
+      + Novas Férias
+    </a>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="bg-primary text-light">
+      <th>Colaborador</th>
+      <th>Data Inicio</th>
+      <th>Data Fim</th>
+      <th class="text-center">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of ferias">
+      <td>
+          <strong>{{f.colaborador}}</strong><br>
+          <small>{{f.time.nome}}</small><br>
+          <small *ngIf="f.comentario" class="text-success" >{{f.comentario}}</small>
+      </td>
+      <td>
+       {{f.dataInicio}}
+      </td>
+      <td>
+        {{f.dataFim}}
+        <small *ngIf="f.comentario" class="text-success" >{{f.concluidaText}}</small>
+      </td>
+      <td class="text-center">
+        <a [routerLink]="[f.id,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <button (click)="deleteFerias(f)" class="btn btn-outline-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

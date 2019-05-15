@@ -1,10 +1,10 @@
+import { FeriasListComponent } from './ferias-list/ferias-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FeriasRoutingModule } from './ferias-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [FeriasListComponent],
   imports: [
     CommonModule,
     FeriasRoutingModule
