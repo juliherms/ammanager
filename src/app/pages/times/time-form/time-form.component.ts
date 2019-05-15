@@ -43,6 +43,15 @@ export class TimeFormComponent implements OnInit,AfterContentChecked {
     this.setPageTitle();
   }
 
+  submitForm(){
+    this.submittingForm = true;
+    if(this.currentAction == "novo"){
+      this.createTime();
+    }else{
+      this.updateTime();
+    }
+  }
+
   // METODOS PRIVADOS
   private setCurrentAction(){
     console.log(this.route.snapshot.url[0].path)
@@ -56,7 +65,7 @@ export class TimeFormComponent implements OnInit,AfterContentChecked {
   private buildTimeForm(){
     this.TimeForm = this.formBuilder.group({
       id:[null],
-      nome: [null,Validators.required,Validators.minLength(3)],
+      nome: [null, [Validators.required, Validators.minLength(3)]],
       descricao: [null]
     })
   }
@@ -80,8 +89,45 @@ export class TimeFormComponent implements OnInit,AfterContentChecked {
       this.pageTitle = "Cadastro de Novo Time";
     }else{
       const nomeTime = this.time.nome || ""
-      this.pageTitle = "Editando time:" + nomeTime;
+      this.pageTitle = "Editando time: " + nomeTime;
     }
   }
 
+  private createTime(){
+    const time: Time = Object.assign(new Time(), this.TimeForm.value);
+    this.timeService.create(time)
+    .subscribe(
+      time => this.actionsForSuccess(time),
+      error => this.actionsForError(error)
+    )
+  }
+
+  private updateTime(){
+    const time: Time = Object.assign(new Time(), this.TimeForm.value);
+    this.timeService.update(time)
+    .subscribe(
+      time => this.actionsForSuccess(time),
+      error => this.actionsForError(error)
+    )
+  }
+
+  private actionsForSuccess(time: Time){
+    //exibe uma mensagem na tela
+    toastr.success("Solicitação processada com sucesso!");
+    //redireciona para a pagina de edicao
+    this.router.navigateByUrl("times",{skipLocationChange:true}).then(
+      () => this.router.navigate(["times",time.id,"editar"])
+    )
+  }
+
+  private actionsForError(error){
+    toastr.erro("Ocorreu um erro ao processar a sua solicitação!");
+    this.submittingForm = false;
+    if(error.status === 422){
+      this.serverErrorMessages = JSON.parse(error._body).errors;
+    } else {
+      this.serverErrorMessages = ["Falha na comunicação com o servidor. Por favor, tente mais tarde"]
+    }
+    
+  }
 }

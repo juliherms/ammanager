@@ -3,14 +3,14 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item"><a routerLink="/times">Times</a></li>
-    <li class="breadcrumb-item active">Formulário de Times</li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
   </ol>
 </nav>
 <!-- titulo da pagina-->
 <div class="row mb-4">
   <div class="col-md">
     <h1 class="h2 border-left pl-2">
-      Formulário de Times
+      {{pageTitle}}
     </h1>
   </div>
   <div class="col-md">
@@ -21,25 +21,29 @@
 </div>
 
 <!-- formulario -->
-<form [formGroup]="TimeForm">
+<form [formGroup]="TimeForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre o Time {{currentAction}}
     </div>
     <div class="card-body">
       <div class="form-row">
-        <div class="form-group col-md-4">
+      <div class="form-group col-md-4">
           <label for="nome">Nome</label>
-          <input type="text" class="form-control" id="nome">
+          <input type="text" class="form-control" id="nome" formControlName="nome">
+          <div class="text-danger" *ngIf="TimeForm.get('nome').invalid && TimeForm.get('nome').touched">
+            <div *ngIf="TimeForm.get('nome').errors.required">Dado obrigatório</div>
+            <div *ngIf="TimeForm.get('nome').errors.minlength">Deve ter no mínimo 3 caracteres</div>
+          </div>
         </div>
         <div class="form-group col-md-8">
           <label for="descricao">Descrição</label>
-          <input type="text" class="form-control" id="descricao">
+          <input type="text" class="form-control" id="descricao" formControlName="descricao">
         </div>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg float-right mt-3">
+  <button [disabled]="submittingForm || TimeForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
     Salvar
   </button>
 </form>
