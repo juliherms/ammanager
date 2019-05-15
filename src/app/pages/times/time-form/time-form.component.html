@@ -21,10 +21,10 @@
 </div>
 
 <!-- formulario -->
-<form>
+<form [formGroup]="TimeForm">
   <div class="card">
     <div class="card-header">
-      Informações sobre o Time
+      Informações sobre o Time {{currentAction}}
     </div>
     <div class="card-body">
       <div class="form-row">
