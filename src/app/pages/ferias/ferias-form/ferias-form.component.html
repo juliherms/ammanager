@@ -1,0 +1,57 @@
+<!--trilha de navegacao -->
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/ferias">Férias</a></li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
+  </ol>
+</nav>
+<!-- titulo da pagina-->
+<div class="row mb-4">
+  <div class="col-md-9">
+    <h1 class="h2 border-left pl-2">
+      {{pageTitle}}
+    </h1>
+  </div>
+  <div class="col-md-3">
+    <a routerLink="/ferias" class="btn btn-light float-right">
+      << Voltar
+    </a>
+  </div>
+</div>
+
+<!-- formulario -->
+<form [formGroup]="feriasForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre as férias
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+      <div class="form-group col-md-4">
+          <label for="colaborador">Colaborador</label>
+          <input type="text" class="form-control" id="colaborador" formControlName="colaborador">
+          <div class="text-danger" *ngIf="feriasForm.get('colaborador').invalid && feriasForm.get('colaborador').touched">
+            <div *ngIf="feriasForm.get('colaborador').errors.required">Dado obrigatório</div>
+            <div *ngIf="feriasForm.get('colaborador').errors.minlength">Deve ter no mínimo 3 caracteres</div>
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <label for="comentario">Comentários</label>
+          <input type="text" class="form-control" id="comentario" formControlName="comentario">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- alertas de errro -->
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor:</strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
+  </div>
+  <!-- botao -->
+  <button [disabled]="submittingForm || feriasForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+    Salvar
+  </button>
+</form>
