@@ -1,4 +1,5 @@
-import { FeriasModule } from './../ferias.module';
+import { TimeService } from './../../times/shared/time.service';
+import { Time } from './../../times/shared/time.model';
 import { Ferias } from './../shared/ferias.model';
 import { FeriasService } from './../shared/ferias.service';
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
@@ -6,6 +7,7 @@ import { FormBuilder,FormControl,FormGroup,Validators } from "@angular/forms";
 import { ActivatedRoute,Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import toastr from "toastr";
+
 
 @Component({
   selector: 'app-ferias-form',
@@ -20,12 +22,28 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
   ferias: Ferias = new Ferias();
+  times: Array<Time>;//necessairo para fazer o select
+
+  ptBR = {
+    firsDayOfWeek: 0,
+    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+    dayNamesMin: ['Do','Se','Te','Qu','Qu','Se','Sa'],
+    monthNames: [
+      'Janeiro','Feveiro','Março','Abril','Maio','Junho','Julho',
+      'Agosto','Setembro','Outubro','Novembro','Dezembro'
+    ],
+    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    today: 'Hoje',
+    clear: 'Limpar'
+  }
 
   constructor(
     private feriasService: FeriasService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder      
+    private formBuilder: FormBuilder,
+    private timeService: TimeService      
   ) { }
 
   //metodo invocado na abertura da tela
@@ -36,6 +54,8 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
     this.buildFeriasForm();
     //carrega o time caso seja edição
     this.loadFerias();
+    //carrega os times disponiveis
+    this.loadTimes();
   }
 
   //metodo invocato apos a criacao dos componentes
@@ -62,6 +82,12 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
     }
   }
 
+  private loadTimes(){
+    this.timeService.getAll().subscribe(
+      times => this.times = times
+    );
+  }
+
   private buildFeriasForm(){
     this.feriasForm = this.formBuilder.group({
       id:[null],
@@ -69,7 +95,7 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
       comentario: [null],
       dataInicio: [null,[Validators.required]],
       dataFim: [null,[Validators.required]],
-      concluida: [null,[Validators.required]],
+      concluida: [false,[Validators.required]],
       timeId: [null,[Validators.required]]
     })
   }
