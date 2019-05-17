@@ -1,3 +1,5 @@
+import { Time } from './../../times/shared/time.model';
+import { TimeService } from './../../times/shared/time.service';
 import { Ferias } from './ferias.model';
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from "@angular/common/http";
@@ -13,7 +15,8 @@ export class FeriasService {
   //mock de requisicao em memoria
   private apiPath: string = "api/ferias";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private timeService: TimeService) { }
 
   //Retorna todos os times
   getAll(): Observable<Ferias[]>{
@@ -34,21 +37,34 @@ export class FeriasService {
     )
   }
 
-  //cria um time
+  //cria as ferias
   create(ferias: Ferias): Observable<Ferias>{
-    return this.http.post(this.apiPath,ferias).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToFeria)
+
+    return this.timeService.getById(ferias.timeId).pipe(
+      flatMap(time => {
+        ferias.time = time;
+
+        return this.http.post(this.apiPath,ferias).pipe(
+          catchError(this.handleError),
+          map(this.jsonDataToFeria)
+        )
+      })
     )
   }
 
-  //Atualiza um time
+  //Atualiza as ferias
   update(ferias: Ferias): Observable<Ferias>{
     const url = `${this.apiPath}/${ferias.id}`;
 
-    return this.http.put(url,ferias).pipe(
-      catchError(this.handleError),
-      map(() => ferias)
+    return this.timeService.getById(ferias.timeId).pipe(
+      flatMap(time =>{
+        ferias.time = time;
+
+        return this.http.put(url,ferias).pipe(
+          catchError(this.handleError),
+          map(() => ferias)
+        )
+      })
     )
   }
 

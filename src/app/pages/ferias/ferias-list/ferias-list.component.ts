@@ -19,6 +19,8 @@ export class FeriasListComponent implements OnInit {
       ferias => this.ferias = ferias,
       error => alert("Erro ao carregar a lista")
     )
+
+    console.log(this.ferias);
   }
 
   //Metodo responsavel por deletar um time.

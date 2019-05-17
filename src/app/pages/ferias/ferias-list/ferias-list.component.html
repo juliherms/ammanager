@@ -31,7 +31,7 @@
   <tbody>
     <tr *ngFor="let f of ferias">
       <td>
-          <strong>{{f.colaborador}}</strong><br>
+        <strong>{{f.colaborador}}</strong><br>
           <small>{{f.time.nome}}</small><br>
           <small *ngIf="f.comentario" class="text-success" >{{f.comentario}}</small>
       </td>
@@ -49,3 +49,5 @@
     </tr>
   </tbody>
 </table>
+<!-- debug -->
+<!-- <pre>{{ferias | json}}</pre>-->
