@@ -16,11 +16,9 @@ export class FeriasListComponent implements OnInit {
 
   ngOnInit() {
     this.feriasService.getAll().subscribe(
-      ferias => this.ferias = ferias,
+      ferias => this.ferias = ferias.sort((a,b) => b.id - a.id),
       error => alert("Erro ao carregar a lista")
     )
-
-    console.log(this.ferias);
   }
 
   //Metodo responsavel por deletar um time.
