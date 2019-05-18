@@ -1,6 +1,7 @@
 import { Time } from '../../times/shared/time.model';
+import { BaseResourceModel } from "../../../shared/models/base-resource.model";
 
-export class Ferias{
+export class Ferias extends BaseResourceModel {
 
     constructor(
         public id?: number,
@@ -11,7 +12,9 @@ export class Ferias{
         public timeId?: number,
         public time?: Time,
         public concluida?: boolean
-    ){}
+    ){
+        super();        
+    }
 
     get concluidaText(): string {
         return this.concluida ? "Já Realizada" : "Pendente";
