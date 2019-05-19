@@ -3,7 +3,7 @@ import { Ferias } from './ferias.model';
 import { Injectable,Injector } from '@angular/core';
 import { BaseResourceService } from "../../../shared/services/base-resource.service";
 import { Observable } from "rxjs";
-import { flatMap } from "rxjs/operators";
+import { flatMap, catchError } from "rxjs/operators";
 
 
 //Representa a classe de servicos de ferias
@@ -22,25 +22,22 @@ export class FeriasService extends BaseResourceService<Ferias> {
 
   //cria as ferias
   create(ferias: Ferias): Observable<Ferias>{
-
-    return this.timeService.getById(ferias.timeId).pipe(
-      flatMap(time => {
-        ferias.time = time;
-        //chama o metodo na heranca
-        return super.create(ferias)
-      })
-    )
+    return this.setTimeAndSendtoServer(ferias,super.create.bind(this))
   }
 
   //Atualiza as ferias
   update(ferias: Ferias): Observable<Ferias>{
+    return this.setTimeAndSendtoServer(ferias,super.update.bind(this));
+  }
 
+  private setTimeAndSendtoServer(ferias: Ferias,sendFn: any): Observable<Ferias>{
     return this.timeService.getById(ferias.timeId).pipe(
-      flatMap(time =>{
+      flatMap(time => {
         ferias.time = time;
         //chama o metodo na heranca
-        return super.update(ferias)
-      })
-    )
+        return sendFn(ferias)
+      }),
+      catchError(this.handleError)
+    );
   }
 }
