@@ -11,6 +11,6 @@ export class TimeService extends BaseResourceService<Time> {
 
   constructor(protected injector: Injector) {
     //pass a url do resource e o injector que funciona como um contexto
-    super("api/times",injector);
+    super("api/times",injector,Time.fromJson);
   }
 }

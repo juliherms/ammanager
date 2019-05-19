@@ -124,7 +124,7 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
   }
 
   private createFerias(){
-    const ferias: Ferias = Object.assign(new Ferias(), this.feriasForm.value);
+    const ferias: Ferias =  Ferias.fromJson(this.feriasForm.value);
     this.feriasService.create(ferias)
     .subscribe(
       time => this.actionsForSuccess(time),
@@ -133,7 +133,7 @@ export class FeriasFormComponent implements OnInit,AfterContentChecked {
   }
 
   private updateFerias(){
-    const ferias: Ferias = Object.assign(new Ferias(), this.feriasForm.value);
+    const ferias: Ferias =  Ferias.fromJson(this.feriasForm.value);
     this.feriasService.update(ferias)
     .subscribe(
       ferias => this.actionsForSuccess(ferias),

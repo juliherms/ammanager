@@ -15,8 +15,9 @@ export class FeriasService extends BaseResourceService<Ferias> {
   constructor(protected injector: Injector,
               private timeService: TimeService)
   {
-    //passa a url basica e o injetor
-    super("api/ferias",injector);
+    //passa a url basica o injetor e a funcao responsavel por converter o objeto
+    //no js é possível passar a funcao como parametro
+    super("api/ferias",injector,Ferias.fromJson);
   }
 
   //cria as ferias
@@ -42,27 +43,4 @@ export class FeriasService extends BaseResourceService<Ferias> {
       })
     )
   }
-
-
-  //METODOS PROTEGIDOS =========================================================================
-
-  //Converte um json em lista de objetos de ferias(faz override)
-  protected jsonDataToResources(jsonData: any[]): Ferias[]{
-
-    const listaFerias: Ferias[] = [];
-    //percorre o array e criar a lista de objetos
-    jsonData.forEach(element => {
-      const ferias = Object.assign(new Ferias(),element);
-      listaFerias.push(ferias);
-    });
-
-    return listaFerias;
-  }
-
-  //Converte um objeto json para time(faz override)
-  protected jsonDataToResource(jsonData: any): Ferias{
-    return Object.assign(new Ferias(),jsonData);
-  }
-
-  // =========================================================================================
 }

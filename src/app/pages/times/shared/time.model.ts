@@ -9,4 +9,9 @@ export class Time extends BaseResourceModel {
     ){
         super();//indica que esta chamando o construtor da classe estendida
     }
+
+    //converte json em objeto
+    static fromJson(jsonData: any): Time {
+        return Object.assign(new Time(),jsonData);
+    }
 }

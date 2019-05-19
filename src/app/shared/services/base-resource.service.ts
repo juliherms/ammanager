@@ -10,8 +10,9 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
   protected http: HttpClient;
 
   constructor(protected apiPath: string,
-              protected injector: Injector)
-  {
+              protected injector: Injector,
+              protected jsonDataToResourceFn:(jsonData:any) => T
+  ){
     // injetor me dê uma instancia httpClient  
     this.http = injector.get(HttpClient);                 
   }
@@ -20,8 +21,9 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
   //Retorna uma lista de todos os recursos
   getAll(): Observable<T[]>{
     return this.http.get(this.apiPath).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToResources)
+      map(this.jsonDataToResources.bind(this)),
+      catchError(this.handleError)
+      
     )
   }
 
@@ -31,16 +33,17 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
     const url = `${this.apiPath}/${id}`;
     
     return this.http.get(url).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToResource)
+      map(this.jsonDataToResource.bind(this)),
+      catchError(this.handleError)
+      
     )
   }
 
   //cria um resource
   create(resource: T): Observable<T>{
     return this.http.post(this.apiPath,resource).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToResource)
+      map(this.jsonDataToResource.bind(this)),
+      catchError(this.handleError)
     )
   }
 
@@ -50,7 +53,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
 
     return this.http.put(url,resource).pipe(
       catchError(this.handleError),
-      map(() => resource)
+      map(() => resource)//deixar igual ao create
     )
   }
 
@@ -70,13 +73,15 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
   //Converte um json em lista de objetos de resources
   protected jsonDataToResources(jsonData: any[]): T[]{
     const resources: T[] = [];
-    jsonData.forEach(element => resources.push(element as T));
+    //passo a minha function como parametro
+    jsonData.forEach(element => resources.push(this.jsonDataToResourceFn(element)));
     return resources;
   }
 
   //Converte um objeto json para resource
   protected jsonDataToResource(jsonData: any): T{
-    return jsonData as T;
+    //passo a minha function como parametro
+    return this.jsonDataToResourceFn(jsonData);
   }
 
   //Levanta e loga uma mensagem de erro 

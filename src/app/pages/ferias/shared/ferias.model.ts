@@ -19,4 +19,9 @@ export class Ferias extends BaseResourceModel {
     get concluidaText(): string {
         return this.concluida ? "Já Realizada" : "Pendente";
     }
+
+    //converte json em objeto
+    static fromJson(jsonData: any): Ferias {
+        return Object.assign(new Ferias(),jsonData);
+    }
 }
