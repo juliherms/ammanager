@@ -1,40 +1,22 @@
-import { Time } from './../../times/shared/time.model';
 import { TimeService } from './../../times/shared/time.service';
 import { Ferias } from './ferias.model';
-import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { map,catchError,flatMap } from "rxjs/operators";
+import { Injectable,Injector } from '@angular/core';
+import { BaseResourceService } from "../../../shared/services/base-resource.service";
+import { Observable } from "rxjs";
+import { flatMap } from "rxjs/operators";
 
-//Representa a classe de servicos de times
+
+//Representa a classe de servicos de ferias
 @Injectable({
   providedIn: 'root'
 })
-export class FeriasService {
+export class FeriasService extends BaseResourceService<Ferias> {
 
-  //mock de requisicao em memoria
-  private apiPath: string = "api/ferias";
-
-  constructor(private http: HttpClient,
-              private timeService: TimeService) { }
-
-  //Retorna todos os times
-  getAll(): Observable<Ferias[]>{
-    return this.http.get(this.apiPath).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToFerias)
-    )
-  }
-
-  //Recupera uma categoria por id informado
-  getById(id: number): Observable<Ferias>{
-    //monta a url com o id
-    const url = `${this.apiPath}/${id}`;
-    
-    return this.http.get(url).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToFeria)
-    )
+  constructor(protected injector: Injector,
+              private timeService: TimeService)
+  {
+    //passa a url basica e o injetor
+    super("api/ferias",injector);
   }
 
   //cria as ferias
@@ -43,46 +25,29 @@ export class FeriasService {
     return this.timeService.getById(ferias.timeId).pipe(
       flatMap(time => {
         ferias.time = time;
-
-        return this.http.post(this.apiPath,ferias).pipe(
-          catchError(this.handleError),
-          map(this.jsonDataToFeria)
-        )
+        //chama o metodo na heranca
+        return super.create(ferias)
       })
     )
   }
 
   //Atualiza as ferias
   update(ferias: Ferias): Observable<Ferias>{
-    const url = `${this.apiPath}/${ferias.id}`;
 
     return this.timeService.getById(ferias.timeId).pipe(
       flatMap(time =>{
         ferias.time = time;
-
-        return this.http.put(url,ferias).pipe(
-          catchError(this.handleError),
-          map(() => ferias)
-        )
+        //chama o metodo na heranca
+        return super.update(ferias)
       })
     )
   }
 
-  //Deleta um time
-  delete(id: number): Observable<any>{
-    //monta a url com o id
-    const url = `${this.apiPath}/${id}`;
 
-    return this.http.delete(url).pipe(
-      catchError(this.handleError),
-      map(() => null)
-    )
-  }
+  //METODOS PROTEGIDOS =========================================================================
 
-  //METODOS PRIVADOS
-
-  //Converte um json em lista de objetos de ferias
-  private jsonDataToFerias(jsonData: any[]): Ferias[]{
+  //Converte um json em lista de objetos de ferias(faz override)
+  protected jsonDataToResources(jsonData: any[]): Ferias[]{
 
     const listaFerias: Ferias[] = [];
     //percorre o array e criar a lista de objetos
@@ -94,14 +59,10 @@ export class FeriasService {
     return listaFerias;
   }
 
-  //Converte um objeto json para time
-  private jsonDataToFeria(jsonData: any): Ferias{
+  //Converte um objeto json para time(faz override)
+  protected jsonDataToResource(jsonData: any): Ferias{
     return Object.assign(new Ferias(),jsonData);
   }
 
-  //Levanta e loga uma mensagem de erro 
-  private handleError(error: any): Observable<any>{
-    console.log("ERRO NA REQUISIÇÃO => ", error );
-    return throwError(error);
-  }
+  // =========================================================================================
 }
