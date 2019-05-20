@@ -21,7 +21,7 @@
 </div>
 
 <!-- formulario -->
-<form [formGroup]="TimeForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre o Time {{currentAction}}
@@ -31,9 +31,9 @@
       <div class="form-group col-md-4">
           <label for="nome">Nome</label>
           <input type="text" class="form-control" id="nome" formControlName="nome">
-          <div class="text-danger" *ngIf="TimeForm.get('nome').invalid && TimeForm.get('nome').touched">
-            <div *ngIf="TimeForm.get('nome').errors.required">Dado obrigatório</div>
-            <div *ngIf="TimeForm.get('nome').errors.minlength">Deve ter no mínimo 3 caracteres</div>
+          <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">
+            <div *ngIf="resourceForm.get('nome').errors.required">Dado obrigatório</div>
+            <div *ngIf="resourceForm.get('nome').errors.minlength">Deve ter no mínimo 3 caracteres</div>
           </div>
         </div>
         <div class="form-group col-md-8">
@@ -51,7 +51,7 @@
     </ul>
   </div>
   <!-- botao -->
-  <button [disabled]="submittingForm || TimeForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
     Salvar
   </button>
 </form>
