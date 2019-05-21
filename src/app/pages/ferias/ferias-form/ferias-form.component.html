@@ -21,7 +21,7 @@
 </div>
 
 <!-- formulario -->
-<form [formGroup]="feriasForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre as férias
@@ -32,9 +32,9 @@
         <div class="form-group col-md-4">
             <label for="colaborador">Colaborador</label>
             <input type="text" class="form-control" id="colaborador" formControlName="colaborador">
-            <div class="text-danger" *ngIf="feriasForm.get('colaborador').invalid && feriasForm.get('colaborador').touched">
-              <div *ngIf="feriasForm.get('colaborador').errors.required">Dado obrigatório</div>
-              <div *ngIf="feriasForm.get('colaborador').errors.minlength">Deve ter no mínimo 3 caracteres</div>
+            <div class="text-danger" *ngIf="resourceForm.get('colaborador').invalid && resourceForm.get('colaborador').touched">
+              <div *ngIf="resourceForm.get('colaborador').errors.required">Dado obrigatório</div>
+              <div *ngIf="resourceForm.get('colaborador').errors.minlength">Deve ter no mínimo 3 caracteres</div>
             </div>
           </div>
           <!-- comentario -->
@@ -48,16 +48,16 @@
         <div class="form-group col-md-2">
             <label for="dataInicio">Data Início</label>
             <p-calendar id="dataInicio" formControlName="dataInicio" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"></p-calendar>
-            <div class="text-danger" *ngIf="feriasForm.get('dataInicio').invalid && feriasForm.get('dataInicio').touched">
-                <div *ngIf="feriasForm.get('dataInicio').errors.required">Dado obrigatório</div>
+            <div class="text-danger" *ngIf="resourceForm.get('dataInicio').invalid && resourceForm.get('dataInicio').touched">
+                <div *ngIf="resourceForm.get('dataInicio').errors.required">Dado obrigatório</div>
             </div>
         </div>
         <!-- data fim -->
         <div class="form-group col-md-2">
             <label for="dataInicio">Data Fim</label>
             <p-calendar id="dataFim" formControlName="dataFim" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"></p-calendar>
-            <div class="text-danger" *ngIf="feriasForm.get('dataFim').invalid && feriasForm.get('dataFim').touched">
-                <div *ngIf="feriasForm.get('dataFim').errors.required">Dado obrigatório</div>
+            <div class="text-danger" *ngIf="resourceForm.get('dataFim').invalid && resourceForm.get('dataFim').touched">
+                <div *ngIf="resourceForm.get('dataFim').errors.required">Dado obrigatório</div>
               </div>
         </div>
         <!-- time -->
@@ -67,8 +67,8 @@
               <option *ngFor="let time of times" [value]="time.id">{{time.nome}}</option>
             </select>
 
-            <div class="text-danger" *ngIf="feriasForm.get('timeId').invalid && feriasForm.get('timeId').touched">
-                <div *ngIf="feriasForm.get('timeId').errors.required">Dado obrigatório</div>
+            <div class="text-danger" *ngIf="resourceForm.get('timeId').invalid && resourceForm.get('timeId').touched">
+                <div *ngIf="resourceForm.get('timeId').errors.required">Dado obrigatório</div>
             </div>
         </div>
         
@@ -77,8 +77,8 @@
           <div class="form-group col-md-2">
               <label for="concluida">Situação</label>
               <div class="btn-group">
-                <label (click)="feriasForm.get('concluida').setValue(true)" [class.active]="feriasForm.get('concluida').value == true" class="btn btn-outline-info">Aprovada</label>
-                <label (click)="feriasForm.get('concluida').setValue(false)" [class.active]="feriasForm.get('concluida').value == false" class="btn btn-outline-info">Pendente</label>
+                <label (click)="resourceForm.get('concluida').setValue(true)" [class.active]="resourceForm.get('concluida').value == true" class="btn btn-outline-info">Aprovada</label>
+                <label (click)="resourceForm.get('concluida').setValue(false)" [class.active]="resourceForm.get('concluida').value == false" class="btn btn-outline-info">Pendente</label>
               </div>
             </div>
             
@@ -93,9 +93,9 @@
     </ul>
   </div>
   <!-- botao -->
-  <button [disabled]="submittingForm || feriasForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
     Salvar
   </button>
 </form>
 <!-- debug -->
-<!--<pre>{{feriasForm.value | json}}</pre>-->
+<!--<pre>{{resourceForm.value | json}}</pre>-->
