@@ -1,6 +1,7 @@
 import { TimeService } from './../shared/time.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Time } from "../shared/time.model";
+import { BaseResourceListComponent } from "../../../shared/components/base-resource-list/base-resource-list.component";
 
 
 @Component({
@@ -8,30 +9,9 @@ import { Time } from "../shared/time.model";
   templateUrl: './time-list.component.html',
   styleUrls: ['./time-list.component.css']
 })
-export class TimeListComponent implements OnInit {
+export class TimeListComponent extends BaseResourceListComponent<Time> {
 
-  times: Time[] = [];
-
-  constructor(private timeService: TimeService) { }
-
-  ngOnInit() {
-    this.timeService.getAll().subscribe(
-      times => this.times = times,
-      error => alert("Erro ao carregar a lista")
-    )
-  }
-
-  //Metodo responsavel por deletar um time.
-  deleteTime(time){
-
-    const deveDeletar = confirm('Deseja realmente excluir este item?');
-
-    if(deveDeletar){
-      this.timeService.delete(time.id).subscribe(
-        () => this.times = this.times.filter(element => element != time),
-        () => alert("Erro ao tentar excluir!")
-      )
-    }
-  }
-
+  constructor(private timeService: TimeService) {
+    super(timeService);
+   }
 }

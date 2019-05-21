@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { BaseResourceModel } from "../../models/base-resource.model";
 import { BaseResourceService } from "../../services/base-resource.service";
 
-//Classe gerenica para listagem de entidade
+//Classe generica para listagem de entidade
 export abstract class BaseResourceListComponent<T extends BaseResourceModel> implements OnInit {
 
   resources: T[] = [];

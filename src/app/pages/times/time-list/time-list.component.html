@@ -27,14 +27,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let time of times">
+    <tr *ngFor="let time of resources">
       <td>
           <strong>{{time.nome}}</strong><br>
           <small>{{time.descricao}}</small>
       </td>
       <td>
         <a [routerLink]="[time.id,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button (click)="deleteTime(time)" class="btn btn-outline-danger btn-sm">Excluir</button>
+        <button (click)="deleteResource(time)" class="btn btn-outline-danger btn-sm">Excluir</button>
       </td>
     </tr>
   </tbody>
