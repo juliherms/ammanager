@@ -1,11 +1,8 @@
-<!--trilha de navegacao -->
-<nav class="mb-5">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/ferias">Férias</a></li>
-    <li class="breadcrumb-item active">{{pageTitle}}</li>
-  </ol>
-</nav>
+<!-- componente de trilha de navegacao -->
+<app-bread-crumb 
+  [items]="[{text:'Férias',link:'/ferias'},{text: pageTitle}]"
+></app-bread-crumb>
+
 <!-- titulo da pagina-->
 <div class="row mb-4">
   <div class="col-md-9">

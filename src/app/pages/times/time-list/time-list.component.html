@@ -1,10 +1,8 @@
-<!--trilha de navegacao -->
-<nav class="mb-5">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item active">Times</li>
-  </ol>
-</nav>
+<!-- componente de trilha de navegacao -->
+<app-bread-crumb 
+  [items]="[{text: 'Times'}]"
+></app-bread-crumb>
+
 <!-- titulo da pagina-->
 <div class="row mb-4">
   <div class="col-md">
