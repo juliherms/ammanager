@@ -1,6 +1,7 @@
 import { Ferias } from './../shared/ferias.model';
 import { FeriasService } from './../shared/ferias.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BaseResourceListComponent } from "../../../shared/components/base-resource-list/base-resource-list.component";
 
 
 @Component({
@@ -8,30 +9,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ferias-list.component.html',
   styleUrls: ['./ferias-list.component.css']
 })
-export class FeriasListComponent implements OnInit {
-
-  ferias: Ferias[] = [];
-
-  constructor(private feriasService: FeriasService) { }
-
-  ngOnInit() {
-    this.feriasService.getAll().subscribe(
-      ferias => this.ferias = ferias.sort((a,b) => b.id - a.id),
-      error => alert("Erro ao carregar a lista")
-    )
+export class FeriasListComponent extends BaseResourceListComponent<Ferias> {
+  //passa como parametro o servico de ferias para a listagem
+  constructor(private feriasService: FeriasService) {
+    super(feriasService);
   }
-
-  //Metodo responsavel por deletar um time.
-  deleteFerias(ferias){
-
-    const deveDeletar = confirm('Deseja realmente excluir este item?');
-
-    if(deveDeletar){
-      this.feriasService.delete(ferias.id).subscribe(
-        () => this.ferias = this.ferias.filter(element => element != ferias),
-        () => alert("Erro ao tentar excluir!")
-      )
-    }
-  }
-
 }

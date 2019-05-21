@@ -29,7 +29,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let f of ferias">
+    <tr *ngFor="let f of resources">
       <td>
         <strong>{{f.colaborador}}</strong><br>
           <small>{{f.time.nome}}</small><br>
@@ -44,10 +44,10 @@
       </td>
       <td class="text-center">
         <a [routerLink]="[f.id,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button (click)="deleteFerias(f)" class="btn btn-outline-danger btn-sm">Excluir</button>
+        <button (click)="deleteResource(f)" class="btn btn-outline-danger btn-sm">Excluir</button>
       </td>
     </tr>
   </tbody>
 </table>
 <!-- debug -->
-<!-- <pre>{{ferias | json}}</pre>-->
+<!-- <pre>{{resources | json}}</pre>-->
