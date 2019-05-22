@@ -4,18 +4,13 @@
 ></app-bread-crumb>
 
 <!-- titulo da pagina-->
-<div class="row mb-4">
-  <div class="col-md">
-    <h1 class="h2 border-left pl-2">
-      Times
-    </h1>
-  </div>
-  <div class="col-md">
-    <a routerLink="novo" class="btn btn-success float-right">
-      + Novo Time
-    </a>
-  </div>
-</div>
+<app-page-header
+ page-title="Times"
+ button-text="+ Novo Time"
+ button-link="novo"
+ button-class="btn-success"
+>
+</app-page-header>
 
 <table class="table table-hover">
   <thead>

@@ -26,7 +26,7 @@ export class TimeFormComponent extends BaseResourceFormComponent<Time> {
     });
   }
 
-  protected createPageTitle(): string {
+  protected creationPageTitle(): string {
     return "Cadastro de Novo Time";
   }
 
