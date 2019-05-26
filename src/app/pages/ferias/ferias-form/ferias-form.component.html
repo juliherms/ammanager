@@ -24,33 +24,29 @@
         <div class="form-group col-md-4">
             <label for="colaborador">Colaborador</label>
             <input type="text" class="form-control" id="colaborador" formControlName="colaborador">
-            <div class="text-danger" *ngIf="resourceForm.get('colaborador').invalid && resourceForm.get('colaborador').touched">
-              <div *ngIf="resourceForm.get('colaborador').errors.required">Dado obrigatório</div>
-              <div *ngIf="resourceForm.get('colaborador').errors.minlength">Deve ter no mínimo 3 caracteres</div>
-            </div>
-          </div>
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('colaborador')"></app-form-field-error>
+        </div>
           <!-- comentario -->
-          <div class="form-group col-md-8">
+        <div class="form-group col-md-8">
             <label for="comentario">Comentários</label>
             <input type="text" class="form-control" id="comentario" formControlName="comentario">
-          </div>
+        </div>
       </div>
       <div class="form-row">
         <!-- data inicio -->
         <div class="form-group col-md-2">
             <label for="dataInicio">Data Início</label>
             <p-calendar id="dataInicio" formControlName="dataInicio" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"></p-calendar>
-            <div class="text-danger" *ngIf="resourceForm.get('dataInicio').invalid && resourceForm.get('dataInicio').touched">
-                <div *ngIf="resourceForm.get('dataInicio').errors.required">Dado obrigatório</div>
-            </div>
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('dataInicio')"></app-form-field-error>
         </div>
         <!-- data fim -->
         <div class="form-group col-md-2">
             <label for="dataInicio">Data Fim</label>
             <p-calendar id="dataFim" formControlName="dataFim" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"></p-calendar>
-            <div class="text-danger" *ngIf="resourceForm.get('dataFim').invalid && resourceForm.get('dataFim').touched">
-                <div *ngIf="resourceForm.get('dataFim').errors.required">Dado obrigatório</div>
-              </div>
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('dataFim')"></app-form-field-error>
         </div>
         <!-- time -->
         <div class="form-group col-md-6">
@@ -58,12 +54,9 @@
           <select name="timeId" id="timeId" formControlName="timeId" class="form-control">
               <option *ngFor="let time of times" [value]="time.id">{{time.nome}}</option>
             </select>
-
-            <div class="text-danger" *ngIf="resourceForm.get('timeId').invalid && resourceForm.get('timeId').touched">
-                <div *ngIf="resourceForm.get('timeId').errors.required">Dado obrigatório</div>
-            </div>
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('timeId')"></app-form-field-error>
         </div>
-        
       </div>
       <div class="form-row">
           <div class="form-group col-md-2">

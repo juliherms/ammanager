@@ -1,3 +1,4 @@
+import { Usuario } from './pages/usuarios/shared/usuario.model';
 import { Ferias } from './pages/ferias/shared/ferias.model';
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { Time } from "./pages/times/shared/time.model";
@@ -21,7 +22,12 @@ export class InMemoryDatabase implements InMemoryDbService{
             {id: 1, colaborador: "Kelen Janner", comentario: "Alinhado com a liderança",dataInicio: "04/11/2019",dataFim: "18/11/2019", timeId: times[0].id,time: times[0],concluida: false}  as Ferias,
             {id: 2, colaborador: "Abner Rodrigues", comentario: "Alinhado com a liderança",dataInicio: "02/01/2019",dataFim: "04/01/2019", timeId: times[0].id,time: times[0],concluida: true}  as Ferias
         ];
+
+        const usuarios: Usuario[] = [
+            {id: 1, login: "jvasco4", nome: "Juliherms Vasconcelos", dataCadastro: "01/01/2019", administrador: "ADM", colaborador: null, papel: null,time: times[0], timeId: times[0].id , senha: "1234",confirmacaoSenha:"1234"} as Usuario,
+            {id: 2, login: "msanta2", nome: "Manoel Santana", dataCadastro: "01/01/2019", administrador: "ADM", colaborador: null, papel: null,time: times[0], timeId: times[0].id, senha: "1234",confirmacaoSenha:"1234"  } as Usuario
+        ];
    
-        return {times,ferias}
+        return {times,ferias,usuarios}
     }
 }

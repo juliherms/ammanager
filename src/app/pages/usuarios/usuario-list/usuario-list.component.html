@@ -1,0 +1,44 @@
+<!-- componente de trilha de navegacao -->
+<app-bread-crumb 
+  [items]="[{text: 'Usuários'}]"
+></app-bread-crumb>
+
+
+<!-- titulo da pagina-->
+<app-page-header
+ page-title="Usuários"
+ button-text="+ Novo Usuário"
+ button-link="novo"
+ button-class="btn-success"
+>
+</app-page-header>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="bg-primary text-light">
+      <th>Login</th>
+      <th>Nome</th>
+      <th>Time</th>
+      <th class="text-center">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of resources">
+      <td>
+        <strong>{{f.login}}</strong>
+      </td>
+      <td>
+       {{f.nome}}
+      </td>
+      <td>
+        {{f.time.nome}}
+      </td>
+      <td class="text-center">
+        <a [routerLink]="[f.id,'editar']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <button (click)="deleteResource(f)" class="btn btn-outline-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- debug -->
+<!-- <pre>{{resources | json}}</pre>-->

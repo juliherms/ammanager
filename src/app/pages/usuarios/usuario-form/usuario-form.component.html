@@ -1,0 +1,69 @@
+<!-- componente de trilha de navegacao -->
+<app-bread-crumb 
+  [items]="[{text:'Usuários',link:'/usuarios'},{text: pageTitle}]"
+></app-bread-crumb>
+
+<!-- titulo da pagina-->
+<app-page-header
+ [page-title]="pageTitle"
+ button-text="<< Voltar"
+ button-link="/usuarios"
+ button-class="btn-light"
+>
+</app-page-header>
+
+<!-- formulario -->
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre usuário
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <!-- Login -->  
+        <div class="form-group col-md-2">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" formControlName="login">
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('login')"></app-form-field-error>
+          </div>
+          <!-- Nome -->
+          <div class="form-group col-md-10">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+          </div>
+      </div>
+      <div class="form-row">
+        <!-- data inicio -->
+        <div class="form-group col-md-2">
+          <label for="dataCadastro">Data Cadastro</label>
+          <p-calendar id="dataCadastro" formControlName="dataCadastro" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"></p-calendar>
+          <!-- componente customizado - passo como parametro o formcontrol -->
+          <app-form-field-error [form-control]="resourceForm.get('dataCadastro')"></app-form-field-error>
+        </div>
+        <!-- time -->
+        <div class="form-group col-md-10">
+          <label for="timeId">Time</label>
+          <select name="timeId" id="timeId" formControlName="timeId" class="form-control">
+              <option *ngFor="let time of times" [value]="time.id">{{time.nome}}</option>
+            </select>
+            <!-- componente customizado - passo como parametro o formcontrol -->
+            <app-form-field-error [form-control]="resourceForm.get('timeId')"></app-form-field-error>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- alertas de errro -->
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor:</strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
+  </div>
+  <!-- botao -->
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+    Salvar
+  </button>
+</form>
+<!-- debug -->
+<!--<pre>{{resourceForm.value | json}}</pre>-->
