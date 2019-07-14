@@ -16,7 +16,7 @@ export class UsuarioService extends BaseResourceService<Usuario> {
   {
       //passa a url basica o injetor e a funcao responsavel por converter o objeto
       //no js é possível passar a funcao como parametro
-      super("api/usuariosaaaa",injector,Usuario.fromJson);
+      super("api/usuarios",injector,Usuario.fromJson);
   }
 
   //cria usuario
