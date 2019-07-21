@@ -29,23 +29,17 @@ body{
     background: #eff1f4ff;
 }
 
-#page-content-wrapper {
-    min-width: 100vw; /* view port */
-}
-
-/* quando a tela tiver no minimo esse tamanho */
-/* menor tela de pc */
-@media(min-width:768px){
-    #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
-    }
-}
 
 /* barra de menu */
 #sidebar-wrapper{
     min-height: 100vh;
-   /* margin-left: -18rem; */
+    margin-left: -18rem;
+    /* para funcionar em todos os navegadores */
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    /* mudanca em animacao */
+    transition: margin .25s ease-out; 
     background-color: #3e4856ff;
 }
 
@@ -83,6 +77,33 @@ body{
     background: #fff;
     box-shadow: 8px 2px 6px rgba(164,164,164,0.3)
 }
+
+#page-content-wrapper {
+    min-width: 100vw; /* view port */
+}
+
+#wrapper.toggled #sidebar-wrapper{
+    margin-left: 0;
+}
+
+/* quando a tela tiver no minimo esse tamanho */
+/* menor tela de pc */
+@media(min-width:768px){
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #sidebar-wrapper{
+        margin-left: 0;
+    }
+
+    #wrapper.toggled #sidebar-wrapper{
+        margin-left: -18rem;
+
+    }
+}
+
 #navbar-site-title{
     font-family: 'Nunito', sans-serif;
     font-size: 18px;
