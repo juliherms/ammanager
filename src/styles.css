@@ -29,12 +29,64 @@ body{
     background: #eff1f4ff;
 }
 
+#page-content-wrapper {
+    min-width: 100vw; /* view port */
+}
+
+/* quando a tela tiver no minimo esse tamanho */
+/* menor tela de pc */
+@media(min-width:768px){
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+/* barra de menu */
+#sidebar-wrapper{
+    min-height: 100vh;
+   /* margin-left: -18rem; */
+    background-color: #3e4856ff;
+}
+
+/* cabecalho do menu */
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem;
+    font-size: 17px;
+    background-color: #262d37ff;
+    color: #fff;
+    height: 64px;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* linha do menu */
+#sidebar-wrapper .list-group {
+    width: 18rem;
+}
+
+/* linha do menu */
+#sidebar-wrapper .list-group-item {
+    background-color: #3e4856ff;
+    color:#fff;
+    border:none;
+    font-family: 'Nunito', sans-serif;
+    padding: 10%;
+    padding-left: 15%;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #262e39f0;
+    color:#fff;
+}
+
 #son-navbar{
     background: #fff;
     box-shadow: 8px 2px 6px rgba(164,164,164,0.3)
 }
 #navbar-site-title{
-
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    padding-left: 1.2%;
 }
 /* formulario **/
 #navbar-search-form{
