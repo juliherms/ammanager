@@ -63,6 +63,7 @@ body{
 /* linha do menu */
 #sidebar-wrapper .list-group {
     width: 18rem;
+    height: 10rem;
 }
 
 /* linha do menu */
