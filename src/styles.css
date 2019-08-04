@@ -53,6 +53,13 @@ body{
     font-family: 'Nunito', sans-serif;
 }
 
+#sidebar-wrapper .sidebar-heading img {
+    width: 30px;
+    padding-bottom: 3%;
+    padding-right: 3%;
+
+}
+
 /* linha do menu */
 #sidebar-wrapper .list-group {
     width: 18rem;
@@ -75,7 +82,8 @@ body{
 
 #son-navbar{
     background: #fff;
-    box-shadow: 8px 2px 6px rgba(164,164,164,0.3)
+    box-shadow: 8px 2px 6px rgba(164,164,164,0.3);
+    height:64px;
 }
 
 #page-content-wrapper {
@@ -127,4 +135,20 @@ body{
     padding-left: 4%;
     color: #262d37ff;
     font-family: 'Nunito', sans-serif;
+}
+
+
+/* ------------------------- */
+
+/*
+#menu-toggle{
+    background-color: #262d37ff;
+    width:82px;
+    height:64px;
+    color:#fff;
+    padding-top: 14px;
+}
+*/
+#menu-toggle img{
+    width: 30px;
 }
